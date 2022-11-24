@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  api:
+    build:
+      context: "./"
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - ${MEMIXIT_API_PATH:-.}/src:/app/src
+    ports:
+      - "4000:4000"
+    networks:
+      - memixit_network
+  database:
+    image: mongo:5.0.8
+    ports:
+      - "27017:27017"
+    networks:
+      - memixit_network
+
+networks:
+  memixit_network:
+    external: true
